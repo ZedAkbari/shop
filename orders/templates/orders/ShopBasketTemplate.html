@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block contant %}
+    <form style="width: 100%">
+        {% if baskets.count > 0 %}
+            <table class="table table-striped" style="width: 100%">
+                <thead>
+                <tr>
+                    <th scope="col">تصویر محصول</th>
+                    <th scope="col">نام محصول</th>
+                    <th scope="col">قیمت محصول</th>
+                    <th scope="col">تعداد</th>
+                    <th scope="col">مبلغ پرداختی</th>
+                    <th scope="col">حذف</th>
+                </tr>
+                </thead>
+                {% for basket in baskets %}
+                    {% if basket.count_pro > 0 %}
+                        <tr>
+                            <td><a href="{% url 'home:product_detail' basket.product.id %}">
+                                <img src="{{ basket.product.image.url }}" style="width: 80px; height: 80px;"></a></td>
+                            <td>{{ basket.product.name }}</td>
+                            <td>{{ basket.product.price }}</td>
+                            <td>{{ basket.count_pro }}</td>
+                            <td>{{ basket.total_price }}</td>
+                            <td><a href="{% url 'orders:basket_remove' basket.product.id %}">
+                                <img src="../../../media/delete-icon.png" style="width: 40px; height: 40px;">
+                            </a></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+            <a href="{% url 'orders:orders_info' %}" class="btn btn-info">ثبت سفارش</a>
+        {% else %}
+            <div align="center">
+                <h5 class="card-text">سبد خرید شما خالی است</h5>
+                <img src="../../../media/sad_basket.png" width="170px" height="170px">
+            </div>
+        {% endif %}
+    </form>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block contant %}
+    {% for payment in payments %}
+        <div class="card" style="width: 16rem;">
+            <div class="card-header">تاریخ : {{ payment.date.day }} / {{ payment.date.month }}
+                / {{ payment.date.year }} _ {{ payment.date.minute }} : {{ payment.date.hour }}</div>
+            <div class="list-group list-group-flush">
+                <h6 class="list-group-item">مبلغ پرداخت شده : {{ payment.order.total_price }}</h6>
+                <h6 class="list-group-item">کد رهگیری : {{ payment.tracking_code }}</h6>
+                <h6 class="list-group-item">کد وضعیت : {{ payment.statues_code }}</h6>
+                <h6 class="list-group-item" style="text-align: center"><a class="btn btn-outline-warning"
+                        href="{% url 'orders:payment_order' payment.order.id %}">سفارش</a></h6>
+            </div>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    {% endfor %}
+{% endblock %}

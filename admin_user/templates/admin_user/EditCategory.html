@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block contant %}
+    {% for category in  categorys %}
+        <div class="card" style="width: 12rem;text-align: center">
+            <div class="card-body">
+                <h5 class="card-title">{{ category.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ category.slug }}</h6>
+                <a href="{% url 'admin_user:admin_update_category' category.id %}" class="btn btn-outline-primary">ویرایش</a>
+                <a href="{% url 'admin_user:admin_delete_category' category.id %}" class="btn btn-outline-danger">حذف</a>
+            </div>
+        </div>
+        &nbsp;&nbsp;
+    {% endfor %}
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url 'admin_user:admin_add_category' %}" class="btn btn-success" style="width: 150px; height: 40px;">اضافه کردن دسته بندی</a>
+{% endblock %}

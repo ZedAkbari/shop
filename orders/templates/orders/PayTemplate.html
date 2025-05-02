@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block contant %}
+    <div class="card" style="width: 18rem; align-items: center; text-align: center">
+        <div class="card-body">
+            <h5 class="card-text">{{ user.full_name }}</h5>
+            <br>
+            <p class="card-text"> شماره تلفن : {{ user.phone_number }}</p>
+            <p class="card-text"> ایمیل : {{ user.email }}</p>
+            <p class="card-text"> مبلغ پرداختی : {{ pay_price }} ريال</p>
+            <a class="btn btn-primary" href="{% url 'orders:order_pay' order.id %}">پرداخت</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block aside %}
+    <form method="post" style="width: 150px; text-align: center" dir="ltr">
+        {% csrf_token %}
+        <input type="date" name="from_date" id="from_date">
+        <input type="date" name="to_date" id="to_date">
+        <br>
+        <input type="submit" class="btn btn-outline-success" value="جستجو">
+    </form>
+    {#    <div class="card" style="width: 9rem; text-align: center">#}
+    {#        <div class="card-header" style="height: 3.5rem;">#}
+    {#            <a href="{% url 'admin_user:admin_payment_time' 'new' %}">جدید ترین ها</a>#}
+    {#        </div>#}
+    {#        <div class="card-header" style="height: 3.5rem;">#}
+    {#            <a href="{% url 'admin_user:admin_payment_time' 'old' %}">قدیمی ترین ها</a>#}
+    {#        </div>#}
+    {#        <br>#}
+    {#        <div class="list-group list-group-flush">#}
+    {#            <a href="{% url 'admin_user:admin_payment_time' 'hour_ego' %}" class="list-group-item">یک ساعت اخیر</a>#}
+    {#            <a href="{% url 'admin_user:admin_payment_time' 'day_ego' %}" class="list-group-item">یک روز اخیر</a>#}
+    {#            <a href="{% url 'admin_user:admin_payment_time' 'month_ego' %}" class="list-group-item">یک ماه اخیر</a>#}
+    {#        </div>#}
+    {#    </div>#}
+{% endblock %}
+
+{% block contant %}
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    {% if payments %}
+        {% for payment in  payments %}
+            <div class="card" style="width: 15rem;text-align: center">
+                <div class="card-body">
+                    <h4 class="card-title">{{ payment.user.full_name }}</h4><br>
+                    <div style="text-align: right">
+                        <h6 class="card-subtitle mb-2 text-muted">شماره تلفن کاربر
+                            : {{ payment.user.phone_number }}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">کد رهگیری : {{ payment.tracking_code }}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">کد وضعیت : {{ payment.statues_code }}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">تاریخ : {{ payment.date.day }}
+                            / {{ payment.date.month }}
+                            / {{ payment.date.year }}&nbsp;&nbsp;&nbsp;{{ payment.date.minute }}:
+                            {{ payment.date.hour }}</h6>
+                        <h6 class="list-group-item" style="text-align: center"><a class="btn btn-outline-warning"
+                                                                                  style="width: 130px"
+                                                                                  href="{% url 'orders:payment_order' payment.order.id %}">سفارش</a>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            &nbsp;&nbsp;
+        {% endfor %}
+    {% else %}
+        <div class="card-body" style="width: 15rem;text-align: center">
+        <br>
+            <h4>no payment</h4>
+        </div>
+    {% endif %}
+{% endblock %}

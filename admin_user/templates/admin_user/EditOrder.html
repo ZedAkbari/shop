@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block contant %}
+    {% for order in  orders %}
+        <div class="card" style="width: 15rem;text-align: center">
+            <div class="card-body">
+                <h4 class="card-title">{{ order.user.full_name }}</h4><br>
+                <div style="text-align: right">
+                    <h6 class="card-subtitle mb-2 text-muted">ایمیل : {{ order.user.email }}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">شماره تلفن : {{ order.user.phone_number }}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">تاریخ : {{ order.order_date_update.day }}
+                        / {{ order.order_date_update.month }}
+                        / {{ order.order_date_update.year }}&nbsp;&nbsp;&nbsp;{{ order.order_date_update.minute }}:
+                        {{ order.order_date_update.hour }}</h6>
+                    {% if order.pay %}
+                        <h6 class="card-subtitle mb-2 text-muted">پرداخت شده</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">وضعیت سفارش : {{ order.order_statues }}</h6>
+                        <a href="{% url 'admin_user:admin_update_order' order.id %}" class="btn btn-outline-info">تغییر
+                            وضعیت</a>
+                    {% else %}
+                        <h6 class="card-subtitle mb-2 text-muted">پرداخت نشده</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">وضعیت سفارش : -</h6>
+                    {% endif %}
+                    <a href="{% url 'orders:order_product' order.id %}" class="btn btn-outline-warning">محصولات</a>
+
+                </div>
+            </div>
+        </div>
+        &nbsp;&nbsp;
+    {% endfor %}
+{% endblock %}

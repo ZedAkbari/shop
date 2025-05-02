@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block style %}
+    h2, h4, h5{
+    font-family: "Calisto MT";
+    }
+{% endblock %}
+{% block contant %}
+    <form action="" method="post" novalidate>
+        &nbsp;&nbsp;&nbsp;&nbsp;<img src="../../../media/user.png" width="130px" height="130px">
+        &nbsp;&nbsp;&nbsp;&nbsp;<h2><b>{{ user.full_name }}</b></h2>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<h5> شماره تلفن : {{ user.phone_number }}</h5>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<h5> ایمیل : {{ user.email }}</h5>
+        <br>
+        <a href="{% url 'account:profile_change' user.id %}" class="btn btn-primary">ویرایش مشخصات</a>
+        &nbsp;&nbsp;
+        {% if user.is_admin == False %}
+            <a href="{% url 'orders:user_order' user.id %}"><img src="../../../media/order.png"
+                                                                 style="width: 50px; height: 50px"></a>&nbsp;
+            <a href="{% url 'orders:payment_user' user.id %}"><img src="../../../media/pay.png"
+                                                                   style="width: 40px; height: 40px"></a>
+        {% endif %}
+    </form>
+{% endblock %}

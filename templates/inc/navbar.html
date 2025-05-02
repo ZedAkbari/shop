@@ -1,0 +1,82 @@
+<style>
+    .Mdrop_down_parent {
+        position: relative;
+        display: inline-block;
+    }
+
+    .Mdrop_down {
+        width: 190px;
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(248, 248, 248, 80%);
+        z-index: 5;
+        padding-top: 20px;
+        font-size: 17px;
+    }
+
+    .Mdrop_down_parent:hover .Mdrop_down {
+        display: flex;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    {% if user.is_admin %}
+        section {
+            background-color: ivory;
+        }
+    {% endif %}
+</style>
+<nav class="navbar"
+     style="background-color: {% if user.is_admin %} #d0d0d0 {% else %}#5faba7{% endif %} ; font-family: 'Arial Narrow'"
+     dir="rtl">
+    <div class="navclass">
+        <a class="navbar-brand" href="{% url 'home:home' %}">صفحه اصلی</a>
+        <a class="navbar-brand" href="{% url 'home:products' %}">محصولات</a>
+        {% if request.user.is_authenticated %}
+            <a class="navbar-brand" href="{% url 'account:user_profile' user.id %}">پروفایل</a>
+
+            {% if user.is_admin == True %}
+                <div class="Mdrop_down_parent">
+                    <a class="navbar-brand" href="#">مدیریت</a>
+                    <ul class="Mdrop_down">
+                        <li><b><a href="{% url 'admin_user:admin_account' %}">کاربران</a></b></li>
+                        <br>
+                        <li><b><a href="{% url 'admin_user:admin_product' %}">محصولات</a></b></li>
+                        <br>
+                        <li><b><a href="{% url 'admin_user:admin_category' %}">دسته بندی ها</a></b></li>
+                        <br>
+                        <li><b><a href="{% url 'admin_user:admin_order' %}">سفارشات</a></b></li>
+                        <br>
+                        <li><b><a href="{% url 'admin_user:admin_payment' %}">پرداخت ها</a></b></li>
+                    </ul>
+                </div>
+            {% endif %}
+
+            <a class="navbar-brand" href="{% url 'account:user_logout' %}">خروج</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {% if request.user.is_admin == False %}
+                <a href="{% url 'orders:shopping_basket' user.id %}"><img src="../../../media/shopping-cart2.png"
+                                                                          style="width: 50px; height: 50px"></a>
+            {% endif %}
+        {% else %}
+            <a class="navbar-brand" href="{% url 'account:user_register' %}">ثبت نام</a>
+            <a class="navbar-brand" href="{% url 'account:user_login' %}">ورود</a>
+        {% endif %}
+    </div>
+</nav>

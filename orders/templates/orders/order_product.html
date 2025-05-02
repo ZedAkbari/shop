@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block contant %}
+    {% for interface in order_interface %}
+        <div class="card" style="width: 12rem;">
+            <a href="{% url 'home:product_detail' interface.product.id %}"> <img
+                    src="{{ interface.product.image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ interface.product.name }}</h5>
+                </div>
+            </a>
+            <div class="list-group list-group-flush">
+                <h6 class="list-group-item">تعداد : {{ interface.count_pro }}</h6>
+                <h6 class="list-group-item">مبلغ : {{ interface.total_price }}</h6>
+            </div>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    {% endfor %}
+{% endblock %}

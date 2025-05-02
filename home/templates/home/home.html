@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block contant %}
+    {% for product in products %}
+        <div class="card" style="width: 18rem; margin-right: 2.5rem;">
+            <a href="{% url 'home:product_detail' product.id %}">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                </div>
+            </a>
+        <p align="center" style="font-size: 11px">تعداد بازدید : {{ product.view }} نفر </p>
+        </div>
+    {% endfor %}
+{% endblock %}

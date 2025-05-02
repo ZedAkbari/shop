@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block contant %}
+    {% for user in  users %}
+        <div class="card" style="width: 14rem;text-align: center">
+            <div class="card-body">
+                <h5 class="card-title">{{ user.full_name }}</h5>
+                <p class="card-text">{{ user.email }}</p>
+                <a href="{% url 'admin_user:admin_update_account' user.id %}" class="btn btn-outline-primary">ویرایش</a>
+                {% if not request.user == user %}
+                    <a href="{% url 'admin_user:admin_delete_account' user.id %}" class="btn btn-outline-danger">حذف</a>
+                {% endif %}
+            </div>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+    {% endfor %}
+    &nbsp;&nbsp;&nbsp;
+    <a href="{% url 'admin_user:admin_add_account' %}" class="btn btn-success" style="width: 150px; height: 40px;">اضافه
+        کردن کاربر</a>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block style %}
+    .info{
+    flex-direction: column;
+    padding: 10px;
+    margin-right: 20px;
+    }
+    img{
+    width: 500px;
+    height: 500px;
+    }
+    p{
+    font-size: 30px;
+    }
+{% endblock %}
+{% block contant %}
+    <img src="{{ product.image.url }}">
+    <div class="info">
+        <p><b>{{ product.name }}</b></p><br><br>
+        <h5><b>ویژگی ها : </b><br><br>{{ product.description }}</h5><br><br>
+        <h5><b>قیمت : </b>{{ product.price }} ریال </h5><br><br><br>
+        <h6 style="padding-right: 35px">در دسته : {{ product.category.name }}</h6><br><br>
+
+        {% if request.user.is_admin == False %}
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" class="btn btn-danger" value="افزودن به سبد خرید">
+            </form>
+        {% elif request.user.is_admin %}
+            <a href="{% url 'admin_user:admin_update_product' product.id %}" class="btn btn-outline-primary" style="width: 150px">ویرایش</a>
+            <a href="{% url 'admin_user:admin_delete_product' product.id %}" class="btn btn-outline-danger" style="width: 150px">حذف</a>
+        {% endif %}
+
+    </div>
+{% endblock %}

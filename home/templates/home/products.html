@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block style %}
+    aside{
+    width: 231px;
+    height: 200px
+    background-color: #e3f2fd;
+    display: flex;
+    flex-direction: column;
+    }
+    .parent_drop_down{
+    font-size: 22px;
+    height: 27px;
+    position: relative;
+    margin-right: 25px;
+    padding-top: 12px;
+    display: flex;
+    flex-direction: column;
+    }
+    .drop_down{
+    display: none;
+    flex-direction: row;
+    align-items: right;
+    font-size: 18px;
+    flex-direction: column;
+    }
+    .parent_drop_down:hover .drop_down{
+    display: flex;
+    }
+    a{
+    font-size: 15px;
+    }
+{% endblock %}
+{% block aside %}
+    <form action="" style="width: 240px">
+        {{ form }}
+        <input type="submit" value="جستجو" class="btn btn-info">
+    </form>
+    <br>
+    <div class="parent_drop_down">
+        <b><p style="font-size: 22px">فیلتر ها</p></b>
+        <div class="drop_down">
+            <b><p style="font-size: 18px">دسته بندی</p></b>
+            <a href="{% url 'home:product_category' 'Phone' %}">گوشی</a>
+            <a href="{% url 'home:product_category' 'Headset' %}">هدفون و هنزفری</a>
+            <a href="{% url 'home:product_category' 'Guard' %}">گارد گوشی</a>
+            <hr>
+            <b><p style="font-size: 18px">قیمت کالا</p></b>
+            <a href="{% url 'home:min_price' %}">پایین ترین</a>
+            <a href="{% url 'home:max_price' %}">بالا ترین</a>
+        </div>
+    </div>
+{% endblock %}
+{% block contant %}
+    {% for product in products %}
+        <div class="card" style="width: 18rem; margin-right: 2.5rem;">
+            <a href="{% url 'home:product_detail' product.id %}">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                </div>
+            </a>
+            <h6 class="card-title">تومان : {{ product.price }}</h6>
+        </div>
+    {% endfor %}
+{% endblock %}
